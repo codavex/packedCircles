@@ -6,12 +6,14 @@ import math
 import random
 import sys
 
+
 # does a test circle intersect with a list of circles, with a given 'cushion'
 def intersect(test, circles, cushion):
     for circle in circles:
         if test.intersect(circle, cushion):
             return True
     return False
+
 
 # check we have a config file and an output file
 if len(sys.argv) != 3:
