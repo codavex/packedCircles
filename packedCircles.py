@@ -30,7 +30,6 @@ RADIUS_PLUSMINUS = Config.getfloat("circles", "RADIUS_PLUSMINUS")
 
 SEED_STRING = Config.get("variables", "SEED_STRING")
 DELTA = RADIUS/100
-START_HEIGHT = RADIUS*2
 CUSHION = Config.getfloat("variables", "CUSHION")
 MAX_RIGHT = Config.getfloat("variables", "MAX_RIGHT")
 
@@ -39,22 +38,25 @@ random.seed(SEED_STRING)
 maxHeight = 0
 circles = []
 baseRadius = RADIUS - (RADIUS_PLUSMINUS/2)
+headNum = 2 * (MAX_RIGHT // RADIUS )
 for i in range(NUM_CIRCLES):
     radius = baseRadius + (RADIUS_PLUSMINUS * random.random())
     testX = radius + (MAX_RIGHT - 2*RADIUS)*random.random()
     testY = (maxHeight + (RADIUS+RADIUS_PLUSMINUS))*3
     testR = radius
 
+    circlesSubset = circles[0:headNum]
+
     cantDrop = False
     while cantDrop is False:
-        while (intersect(Circle.Circle(testX, testY-DELTA, testR), circles, CUSHION) is False) and testY-DELTA > radius:
+        while (intersect(Circle.Circle(testX, testY-DELTA, testR), circlesSubset, CUSHION) is False) and testY-DELTA > radius:
             testY -= DELTA
         cantDrop = True
-        if (intersect(Circle.Circle(testX-DELTA, testY, testR), circles, CUSHION) is False) and testX-DELTA > radius:
+        if (intersect(Circle.Circle(testX-DELTA, testY, testR), circlesSubset, CUSHION) is False) and testX-DELTA > radius:
             testX -= DELTA
             cantDrop = False
             continue
-        if (intersect(Circle.Circle(testX+25*DELTA, testY-DELTA, testR), circles, CUSHION) is False) and testX+25*DELTA < MAX_RIGHT and testY-DELTA > radius:
+        if (intersect(Circle.Circle(testX+25*DELTA, testY-DELTA, testR), circlesSubset, CUSHION) is False) and testX+25*DELTA < MAX_RIGHT and testY-DELTA > radius:
             testX += 25*DELTA
             testY -= DELTA
             cantDrop = False
