@@ -38,7 +38,7 @@ random.seed(SEED_STRING)
 maxHeight = 0
 circles = []
 baseRadius = RADIUS - (RADIUS_PLUSMINUS/2)
-headNum = 2 * (MAX_RIGHT // RADIUS )
+headNum = int(2 * (MAX_RIGHT / RADIUS))
 for i in range(NUM_CIRCLES):
     radius = baseRadius + (RADIUS_PLUSMINUS * random.random())
     testX = radius + (MAX_RIGHT - 2*RADIUS)*random.random()
